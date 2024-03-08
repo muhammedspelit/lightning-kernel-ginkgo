@@ -11,7 +11,7 @@ GCC_32_DIR="$HOME/tc/arm-linux-androideabi-14.0"
 AK3_DIR="$HOME/android/AnyKernel3"
 DEFCONFIG="vendor/ginkgo-perf_defconfig"
 
-export PATH="$TC_DIR/bin:$PATH"
+export PATH=$TC_DIR/$PATH
 
 export KBUILD_BUILD_USER=ShaawkTeam
 export KBUILD_BUILD_HOST=Builders
@@ -68,6 +68,7 @@ make -j$(nproc --all) \
     O=out \
     ARCH=arm64 \
     CC=clang \
+    HOSTCC=clang \
     LD=ld.lld \
     AR=llvm-ar \
     AS=llvm-as \
@@ -75,8 +76,8 @@ make -j$(nproc --all) \
     OBJCOPY=llvm-objcopy \
     OBJDUMP=llvm-objdump \
     STRIP=llvm-strip \
-    CROSS_COMPILE=$GCC_64_DIR/bin/aarch64-linux-android- \
-    CROSS_COMPILE_ARM32=$GCC_32_DIR/bin/arm-linux-androideabi- \
+    CROSS_COMPILE=$GCC_64_DIR/usr/bin/aarch64-linux-android- \
+    CROSS_COMPILE_ARM32=$GCC_32_DIR/usr/bin/arm-linux-androideabi- \
     CLANG_TRIPLE=aarch64-linux-gnu- \
     Image.gz-dtb dtbo.img
 
