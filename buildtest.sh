@@ -1,10 +1,8 @@
 #!/bin/bash
 
 SECONDS=0 # builtin bash timer
-ZIPNAME="Surgex-ginkgay-$(TZ=Europe/Istanbul date +"%Y%m%d-%H%M").zip"
-TC_DIR="$HOME/tc/google-18"
-gcc-arm64="$HOME/tc/aarch64-linux-android-"
-gcc-arm="$HOME/tc/arm-linux-androideabi-"
+ZIPNAME="Surgex-ginkgo-$(TZ=Europe/Istanbul date +"%Y%m%d-%H%M").zip"
+TC_DIR="$HOME/tc/zyc-18"
 AK3_DIR="$HOME/android/AnyKernel3"
 DEFCONFIG="vendor/ginkgo-perf_defconfig"
 
@@ -15,23 +13,7 @@ export KBUILD_BUILD_VERSION="1"
 
 if ! [ -d "${TC_DIR}" ]; then
 echo "Clang not found! Cloning to ${TC_DIR}..."
-if ! git clone --depth=1 https://gitlab.com/vermouth/android_prebuilts_clang_host_linux-x86_clang-r510928.git ${TC_DIR}; then
-echo "Cloning failed! Aborting..."
-exit 1
-fi
-fi
-
-if ! [ -d "${gcc-arm64}" ]; then
-echo "gcc not found! Cloning to ${gcc-arm64}..."
-if ! git clone --depth=1 https://github.com/DeliUstaTR/gcc-arm64 ${gcc-arm64}; then
-echo "Cloning failed! Aborting..."
-exit 1
-fi
-fi
-
-if ! [ -d "${gcc-arm}" ]; then
-echo "gcc_32 not found! Cloning to ${gcc-arm}..."
-if ! git clone --depth=1 https://github.com/DeliUstaTR/gcc-arm ${gcc-arm}; then
+if ! git clone --depth=1 -b 18 https://gitlab.com/clangsantoni/zyc_clang.git ${TC_DIR}; then
 echo "Cloning failed! Aborting..."
 exit 1
 fi
@@ -44,7 +26,7 @@ make mrproper
 make O=out ARCH=arm64 $DEFCONFIG
 
 echo -e "\nStarting compilation...\n"
-make -j$(nproc --all) O=out ARCH=arm64 CC=clang LD=ld.lld AR=llvm-ar AS=llvm-as NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip CROSS_COMPILE=$gcc-arm64/aarch64-elf/bin CROSS_COMPILE_ARM32=$gcc-arm/arm-eabi/bin CLANG_TRIPLE=aarch64-linux-gnu- Image.gz-dtb dtbo.img
+make -j$(nproc --all) O=out ARCH=arm64 CC=clang LD=ld.lld AR=llvm-ar AS=llvm-as NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip CROSS_COMPILE=$TC_DIR/aarch64-linux-gnu/bin CROSS_COMPILE_ARM32=$TC_DIR/arm-linux-gnueabi/bin CLANG_TRIPLE=aarch64-linux-gnu- Image.gz-dtb dtbo.img
 
 if [ -f "out/arch/arm64/boot/Image.gz-dtb" ] && [ -f "out/arch/arm64/boot/dtbo.img" ]; then
 echo -e "\nKernel compiled succesfully! Zipping up...\n"
