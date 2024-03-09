@@ -11,6 +11,13 @@ export KBUILD_BUILD_USER="shawkteam"
 export KBUILD_BUILD_HOST="builders"
 export KBUILD_BUILD_VERSION="1"
 
+if ! [ -d "${TC_DIR}" ]; then
+echo "Clang not found! Cloning to ${TC_DIR}..."
+if ! git clone --depth=1 https://gitlab.com/mizdrake7/zyc_clang.git ${TC_DIR}; then
+echo "Cloning failed! Aborting..."
+exit 1
+fi
+fi
 
 curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
 
