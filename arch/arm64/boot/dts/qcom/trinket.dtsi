@@ -349,9 +349,6 @@
 
 		CLUSTER_COST_0: cluster-cost0 {
 			busy-cost-data = <
-                                300000 5
-                                614400 8
-				864000	9
 				1017600	12
 				1305600	18
 				1612800	27
@@ -364,8 +361,6 @@
 
 		CLUSTER_COST_1: cluster-cost1 {
 			busy-cost-data = <
-                                300000 38
-                                614400 46
 				902400	52
 				1401600	88
 				1536000	100
