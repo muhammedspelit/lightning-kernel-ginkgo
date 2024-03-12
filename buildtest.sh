@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SECONDS=0 # builtin bash timer
-ZIPNAME="Sapphire-ginkgo-$(TZ=Europe/Istanbul date +"%Y%m%d-%H%M").zip"
+ZIPNAME="Sapphire-ginkgo-OC_Edition$(TZ=Europe/Istanbul date +"%Y%m%d-%H%M").zip"
 TC_DIR="$HOME/tc/zyc-19"
 AK3_DIR="$HOME/android/AnyKernel3"
 DEFCONFIG="vendor/ginkgo-perf_defconfig"
