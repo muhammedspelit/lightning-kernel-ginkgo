@@ -66,7 +66,6 @@
 			reg = <0x0 0x0>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -96,7 +95,6 @@
 			reg = <0x0 0x1>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -123,7 +121,6 @@
 			reg = <0x0 0x2>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -150,7 +147,6 @@
 			reg = <0x0 0x3>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
@@ -177,7 +173,6 @@
 			reg = <0x0 0x100>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1638>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
@@ -208,7 +203,6 @@
 			reg = <0x0 0x101>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1638>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
@@ -235,7 +229,6 @@
 			reg = <0x0 0x102>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1638>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
@@ -262,7 +255,6 @@
 			reg = <0x0 0x103>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1638>;
-			freq-energy-model;
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
@@ -327,14 +319,13 @@
 
 		CPU_COST_0: core-cost0 {
 			busy-cost-data = <
-				300000	12
+                                300000	12
 				614400	22
-				864000	39
-				1017600	54
-				1305600	83
-				1420800	102
-				1612800	130
-				1804800	172
+				864000	68
+				1017600	79
+				1305600 114
+				1612800	171
+				1804800	223
 			>;
 			idle-cost-data = <
 				10 8 6 4
@@ -343,14 +334,13 @@
 
 		CPU_COST_1: core-cost1 {
 			busy-cost-data = <
-				300000	211
-				652800	417
-				902400	722
-				1056000	991
-				1401600	1577
-				1536000	1932
-				1804800	2579
-				2016000	3391
+                                300000 211
+                                652800 417
+				902400  154
+				1401600	289
+				1536000 344
+				1804800 469
+				2016000	596
 			>;
 			idle-cost-data = <
 				100 60 40 20
@@ -359,12 +349,11 @@
 
 		CLUSTER_COST_0: cluster-cost0 {
 			busy-cost-data = <
-				300000	5
-				614400	8
+                                300000 5
+                                614400 8
 				864000	9
 				1017600	12
 				1305600	18
-				1420800	21
 				1612800	27
 				1804800	36
 			>;
@@ -375,10 +364,9 @@
 
 		CLUSTER_COST_1: cluster-cost1 {
 			busy-cost-data = <
-				300000	38
-				652800	46
+                                300000 38
+                                614400 46
 				902400	52
-				1056000	68
 				1401600	88
 				1536000	100
 				1804800	108
@@ -396,7 +384,7 @@
 	};
 
 	chosen {
-		bootargs = "rcupdate.rcu_expedited=1 rcupdate.rcu_normal_after_boot=1 rcu_nocbs=0-7 nosoftlockup mce=ignore_ce noirqdebug quiet nodebugmon audit=0 audit_enable=0 cgroup_disable=pressure";
+		bootargs = "rcupdate.rcu_expedited=1 rcupdate.rcu_normal_after_boot=1 rcu_nocbs=0-7 noirqdebug nosoftlockup mce=ignore_ce quiet";
 	};
 
 	soc: soc { };
@@ -412,7 +400,7 @@
 				compatible = "android,fstab";
 				vendor {
 					compatble = "android,vendor";
-					dev = "/dev/block/platform/soc/4744000.sdhci/by-name/vendor";
+					dev = "/dev/block/platform/soc/4804000.ufshc/by-name/vendor";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
 					fsmgr_flags = "wait";
@@ -422,7 +410,7 @@
 		};
 	};
 
-	reserved-memory {
+	reserved_memory: reserved-memory {
 		#address-cells = <2>;
 		#size-cells = <2>;
 		ranges;
@@ -484,25 +472,25 @@
 		pil_adsp_mem: pil_adsp_region@55300000 {
 			compatible = "removed-dma-pool";
 			no-map;
-			reg = <0 0x55300000 0 0x2200000>;
+			reg = <0 0x55300000 0 0x1e00000>;
 		};
 
-		pil_ipa_fw_mem: ips_fw_region@57500000 {
+		pil_ipa_fw_mem: ips_fw_region@57100000 {
 			compatible = "removed-dma-pool";
 			no-map;
-			reg = <0 0x57500000 0 0x10000>;
+			reg = <0 0x57100000 0 0x10000>;
 		};
 
-		pil_ipa_gsi_mem: ipa_gsi_region@57510000 {
+		pil_ipa_gsi_mem: ipa_gsi_region@57110000 {
 			compatible = "removed-dma-pool";
 			no-map;
-			reg = <0 0x57510000 0 0x5000>;
+			reg = <0 0x57110000 0 0x5000>;
 		};
 
-		pil_gpu_mem: gpu_region@57515000 {
+		pil_gpu_mem: gpu_region@57115000 {
 			compatible = "removed-dma-pool";
 			no-map;
-			reg = <0 0x57515000 0 0x2000>;
+			reg = <0 0x57115000 0 0x2000>;
 		};
 
 		cdsp_sec_mem: cdsp_sec_regions@5f800000 {
@@ -594,15 +582,7 @@
 		      <0xf300000 0x100000>;    /* GICR * 8 */
 		interrupts = <1 9 4>;
 	};
-    
-	sn_fuse: snfuse@0xA4128 {
-        compatible = "qcom,sn-fuse";
-        reg = <0x01B46134 0x4>,
-              <0x01B4607c 0x4>;
-        reg-names = "sn-base","fuse-state";
-       };
 
-	
 	jtag_mm0: jtagmm@9040000 {
 		compatible = "qcom,jtagv8-mm";
 		reg = <0x9040000 0x1000>;
@@ -889,6 +869,19 @@
 			<0xf523000 0x1400>;
 		reg-names = "osm_pwrcl_base", "osm_perfcl_base";
 		#clock-cells = <1>;
+		qcom,cpufreq-table-0 =
+			<864000>,
+			<1017600>,
+			<1305600>,
+			<1612800>,
+			<1804800>;
+
+		qcom,cpufreq-table-4 =
+			<902400>,
+			<1401600>,
+			<1536000>,
+			<1804800>,
+			<2016000>;
 	};
 
 	clock_debugcc: qcom,cc-debug {
@@ -1096,7 +1089,6 @@
 		reg = <0x440b000 0x4>,
 		      <0x03d3000 0x4>;
 		reg-names = "pshold-base", "tcsr-boot-misc-detect";
-		qcom,force-warm-reboot;
 	};
 
 	qcom,mpm2-sleep-counter@4403000 {
@@ -1111,6 +1103,14 @@
 	};
 
 	thermal_zones: thermal-zones {};
+
+	dcc: dcc_v2@1be2000 {
+		compatible = "qcom,dcc-v2";
+		reg = <0x1be2000 0x1000>,
+			<0x1bef000 0x1000>;
+		reg-names = "dcc-base", "dcc-ram-base";
+		dcc-ram-offset = <0x1000>;
+	};
 
 	tsens0: tsens@4410000 {
 		compatible = "qcom,sm6150-tsens";
@@ -1211,7 +1211,6 @@
 		qcom,bark-time = <11000>;
 		qcom,pet-time = <9360>;
 		qcom,ipi-ping;
-		qcom,wakeup-enable;
 		qcom,scandump-sizes = <0x40000>;
 	};
 
@@ -1680,6 +1679,7 @@
 
 				msm_cdsp_rm: qcom,msm_cdsp_rm {
 					compatible = "qcom,msm-cdsp-rm";
+					qcom,qos-cores = <0 1 2 3>;
 					qcom,qos-latency-us = <43>;
 					qcom,qos-maxhold-ms = <20>;
 					#cooling-cells = <2>;
@@ -1954,6 +1954,14 @@
 			<1 618 0 300000>;  /* 75 MHz */
 		clocks = <&clock_gcc GCC_PRNG_AHB_CLK>;
 		clock-names = "iface_clk";
+	};
+
+	qcom_tzlog: tz-log@0c125720 {
+		compatible = "qcom,tz-log";
+		reg = <0x0c125720 0x3000>;
+		qcom,hyplog-enabled;
+		hyplog-address-offset = <0x410>;
+		hyplog-size-offset = <0x414>;
 	};
 
 	spmi_bus: qcom,spmi@1c40000 {
@@ -2269,9 +2277,9 @@
 
 		/* PM QoS */
 		qcom,pm-qos-irq-type = "affine_irq";
-		qcom,pm-qos-irq-latency = <43 43>;
-		qcom,pm-qos-cpu-groups = <0x0f 0xf0>;
-		qcom,pm-qos-legacy-latency-us = <43 43>, <43 43>;
+		qcom,pm-qos-irq-latency = <40 40>;
+		qcom,pm-qos-cpu-groups = <0x7f 0x80>;
+		qcom,pm-qos-legacy-latency-us = <40 40>, <40 40>;
 
 		clocks = <&clock_gcc GCC_SDCC2_AHB_CLK>,
 			<&clock_gcc GCC_SDCC2_APPS_CLK>;
@@ -2695,7 +2703,7 @@
 
 &pm6125_vadc {
 	pinctrl-names = "default";
-	pinctrl-0 = <&camera_therm_default &emmc_therm_default &backlight_therm_default>;
+	pinctrl-0 = <&camera_therm_default &emmc_therm_default>;
 
 	rf_pa0_therm {
 		reg = <ADC_AMUX_THM1_PU2>;
@@ -2728,14 +2736,6 @@
 		qcom,hw-settle-time = <200>;
 		qcom,pre-scaling = <1 1>;
 	};
-
-	backlight_therm {
-		reg = <ADC_GPIO4_PU2>;
-		label = "backlight_therm";
-		qcom,ratiometric;
-		qcom,hw-settle-time = <200>;
-		qcom,pre-scaling = <1 1>;
-	};
 };
 
 &pm6125_gpios {
@@ -2753,13 +2753,6 @@
 		};
 	};
 
-	backlight_therm {
-		backlight_therm_default: backlight_therm_default {
-			pins = "gpio7";
-			bias-high-impedance;
-		};
-	};
-
 };
 
 &spmi_bus {
@@ -2771,8 +2764,7 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 			io-channels = <&pm6125_vadc ADC_GPIO1_PU2>,
-					<&pm6125_vadc ADC_GPIO3_PU2>,
-					<&pm6125_vadc ADC_GPIO4_PU2>;
+					<&pm6125_vadc ADC_GPIO3_PU2>;
 
 			camera_flash_therm {
 				reg = <ADC_GPIO1_PU2>;
@@ -2782,12 +2774,6 @@
 
 			emmc_ufs_therm {
 				reg = <ADC_GPIO3_PU2>;
-				qcom,ratiometric;
-				qcom,hw-settle-time = <200>;
-			};
-
-			backlight_therm {
-				reg = <ADC_GPIO4_PU2>;
 				qcom,ratiometric;
 				qcom,hw-settle-time = <200>;
 			};
@@ -2829,15 +2815,15 @@
 	};
 
 	bat_therm {
-		qcom,lut-index = <0>;
+		qcom,lut-index = <1>;
 	};
 
 	bat_therm_30k {
-		qcom,lut-index = <0>;
+		qcom,lut-index = <1>;
 	};
 
 	bat_therm_400k {
-		qcom,lut-index = <0>;
+		qcom,lut-index = <1>;
 	};
 
 	conn_therm {
@@ -3069,12 +3055,7 @@
 	vdd_l1_l2-supply = <&S6A>;
 };
 
-&pm8008_8 {
-	status = "disabled";
-};
-
 &pm8008_9 {
-	status = "disabled";
 	/* GPIO1 pinctrl config */
 	pinctrl-names = "default";
 	pinctrl-0 = <&pm8008_gpio1_active>;
