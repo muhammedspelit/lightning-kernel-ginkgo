@@ -19,6 +19,8 @@ exit 1
 fi
 fi
 
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+
 mkdir -p out
 make mrproper
 make O=out ARCH=arm64 $DEFCONFIG
